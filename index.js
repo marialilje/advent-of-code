@@ -2,30 +2,40 @@ var fs = require("fs").promises;
 
 const main = async () => {
   const data = await fs.readFile("input.txt");
-  const depths = data
+  const postions = data
     .toString()
+    .trim()
     .split(/\r\n|\r|\n/)
-    .map((line) => parseInt(line));
-  console.log(depths);
-  let counter = 0;
-  let previousSum;
+  console.log(postions);
 
-  for (let i = 0; i < depths.length; i++) {
-    let depthOne = depths[i];
-    let depthTwo = depths[i + 1];
-    let depthThree = depths[i + 2];
+  // let horizontalPosition = 0;
+  // let depth = 0;
+  // let aim = 0;
 
-    let sum = depthOne + depthTwo + depthThree;
+  // for (let i = 0; i < postions.length; i++) {
+  //   const direction = postions[i].split(' ');
+  //   const directionIncrease = parseInt(direction[1]);
 
-    let currentSum = sum;
+  //   switch(direction[0]) {
+  //     case "forward":
+  //       horizontalPosition+= directionIncrease;
+  //       depth += (aim*directionIncrease);
+  //       break;
+  //       case "down":
+  //       aim += directionIncrease;
+  //       break;
+  //       case "up": 
+  //       aim -= directionIncrease;
+  //       break;
+  //   }
+  // }
 
-    if (currentSum > previousSum) {
-      counter++;
-    }
+  // const finalAnswer = horizontalPosition * depth;
 
-    previousSum = currentSum;
-  }
-  console.log(counter);
+  // console.log(`Horizontal position is: ${horizontalPosition}
+  // Depth is: ${depth}
+  // and multiplied they are: ${finalAnswer}`)
+
 };
 
 main();
