@@ -2,40 +2,50 @@ var fs = require("fs").promises;
 
 const main = async () => {
   const data = await fs.readFile("input.txt");
-  const postions = data
+  const bingoData = data
     .toString()
     .trim()
     .split(/\r\n|\r|\n/)
-  console.log(postions);
+    .filter((line) => line.length > 0);
+  console.log(bingoData);
 
-  // let horizontalPosition = 0;
-  // let depth = 0;
-  // let aim = 0;
+  const bingoNumbers = bingoData[0].split(",").map((n) => parseInt(n));
 
-  // for (let i = 0; i < postions.length; i++) {
-  //   const direction = postions[i].split(' ');
-  //   const directionIncrease = parseInt(direction[1]);
+  let boards = [];
 
-  //   switch(direction[0]) {
-  //     case "forward":
-  //       horizontalPosition+= directionIncrease;
-  //       depth += (aim*directionIncrease);
-  //       break;
-  //       case "down":
-  //       aim += directionIncrease;
-  //       break;
-  //       case "up": 
-  //       aim -= directionIncrease;
-  //       break;
+  for (let i = 1; bingoData.length - 4; i += 5) {
+    const board = [
+      bingoData[i]
+        .split(" ")
+        .map((number) => ({ value: parseInt(number), isMarked: false })),
+      bingoData[i + 1]
+        .split(" ")
+        .map((number) => ({ value: parseInt(number), isMarked: false })),
+      bingoData[i + 2]
+        .split(" ")
+        .map((number) => ({ value: parseInt(number), isMarked: false })),
+      bingoData[i + 3]
+        .split(" ")
+        .map((number) => ({ value: parseInt(number), isMarked: false })),
+      bingoData[i + 4]
+        .split(" ")
+        .map((number) => ({ value: parseInt(number), isMarked: false })),
+    ];
+    console.log(board);
+  }
+
+  // const createNewBoard = (number) => {
+  //   for (let i = 0; i < 5; i++) {
+  //     for (let j = 0; j < 5; j++) {
+  //       {
+  //         number: number,
+  //         position: [i][j],
+  //         selected: false,
+  //       };
+  //     }
   //   }
-  // }
-
-  // const finalAnswer = horizontalPosition * depth;
-
-  // console.log(`Horizontal position is: ${horizontalPosition}
-  // Depth is: ${depth}
-  // and multiplied they are: ${finalAnswer}`)
-
+  // };
+  // const saveNumbers = (board, numbers) => {};
 };
 
 main();
