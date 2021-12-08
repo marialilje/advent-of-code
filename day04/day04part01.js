@@ -42,21 +42,17 @@ const main = async () => {
   }
   console.log(bingoNumbers);
   console.log(boards[0]);
-  let winningBoards = [];
 
   for (const numberCalled of bingoNumbers) {
     for (const board of boards) {
       board.markNumber(numberCalled);
       if (board.hasWon) {
-        winningBoards.push({ numberCalled, board });
+        console.log(board.getScore(numberCalled));
+        return;
       }
     }
   }
-  const lastBoard = winningBoards.pop();
-  console.log(`Length: ${winningBoards.length}
-    ${lastBoard.numberCalled}
-    ${lastBoard.board}`);
-  console.log(board.getScore(numberCalled));
 };
 
 main();
+A;
