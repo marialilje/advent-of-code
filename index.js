@@ -46,17 +46,19 @@ const main = async () => {
 
   for (const numberCalled of bingoNumbers) {
     for (const board of boards) {
-      board.markNumber(numberCalled);
-      if (board.hasWon) {
-        winningBoards.push({ numberCalled, board });
+      if (!board.hasWon) {
+        board.markNumber(numberCalled);
+        if (board.hasWon) {
+          winningBoards.push({ board, score: board.getScore(numberCalled) });
+        }
       }
     }
   }
   const lastBoard = winningBoards.pop();
   console.log(`Length: ${winningBoards.length}
-    ${lastBoard.numberCalled}
-    ${lastBoard.board}`);
-  console.log(board.getScore(numberCalled));
+    ${lastBoard.score}
+    ${JSON.stringify(lastBoard.board)}`);
+  console.log(lastBoard.score);
 };
 
 main();
