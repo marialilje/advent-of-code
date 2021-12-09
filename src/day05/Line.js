@@ -2,6 +2,7 @@ class Line {
   coordinates = [];
   isHorizontal = false;
   isVertical = false;
+  isDiagonal = false;
 
   constructor(lineContent) {
     const coordinates = lineContent.split(" -> ");
@@ -39,6 +40,22 @@ class Line {
       ) {
         this.coordinates.push({
           x: this.from.x,
+          y,
+        });
+      }
+    }
+
+    const xDiff = this.to.x - this.from.x;
+    const yDiff = this.to.y - this.from.y;
+    if (Math.abs(xDiff) === Math.abs(yDiff)) {
+      this.isDiagonal = true;
+      for (
+        let i = 0, x = this.from.x, y = this.from.y;
+        i <= Math.abs(xDiff);
+        i++, x += Math.sign(xDiff), y += Math.sign(yDiff)
+      ) {
+        this.coordinates.push({
+          x,
           y,
         });
       }

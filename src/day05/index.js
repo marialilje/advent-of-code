@@ -13,7 +13,7 @@ const readIput = async () => {
 };
 
 const part1 = async () => {
-  const lines = await readIput();
+  const lines = (await readIput()).filter((line) => !line.isDiagonal);
 
   let maxX = lines[0].from.x;
   let maxY = lines[0].from.y;
@@ -61,11 +61,49 @@ const part1 = async () => {
   console.log(count2);
   console.log(grid.coordinates.length);
 
-  return 0;
+  return count;
 };
 
 const part2 = async () => {
-  return 0;
+  const lines = await readIput();
+
+  let maxX = lines[0].from.x;
+  let maxY = lines[0].from.y;
+  for (const line of lines) {
+    if (maxX < line.from.x) {
+      maxX = line.from.x;
+    }
+    if (maxX < line.to.x) {
+      maxX = line.to.x;
+    }
+    if (maxY < line.from.y) {
+      maxY = line.from.y;
+    }
+    if (maxY < line.to.y) {
+      maxY = line.to.y;
+    }
+  }
+
+  const grid = Grid.create(maxX + 1, maxY + 1, 0);
+
+  for (const line of lines) {
+    for (const coord of line.coordinates) {
+      let cellValue = grid.getValue(coord);
+      grid.setValue(coord, cellValue + 1);
+    }
+  }
+  let count = 0;
+
+  for (const coordinate of grid.coordinates) {
+    if (grid.getValue(coordinate) > 1) {
+      count++;
+    }
+  }
+
+  console.log(count);
+  console.log(grid.coordinates.length);
+
+  return count;
 };
 
 const main = async () => {
