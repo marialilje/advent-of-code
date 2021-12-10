@@ -9,6 +9,10 @@ const readIput = async () => {
     .map((number) => parseInt(number));
 };
 
+const makeChildren = async () => {
+  return [6, 8];
+};
+
 const part1 = async () => {
   let fish = await readIput();
   console.log(fish);
@@ -30,21 +34,19 @@ const part1 = async () => {
 };
 const part2 = async () => {
   let fish = await readIput();
-  console.log(fish);
 
   for (let day = 0; day < 140; day++) {
     let newFish = [];
-    for (let timer of fish) {
-      if (timer === 0) {
-        newFish.push(6);
-        newFish.push(8);
+    for (let currentFish of fish) {
+      if (currentFish === 0) {
+        newFish.push();
       } else {
-        newFish.push(timer - 1);
+        newFish.push(currentFish - 1);
       }
     }
     fish = newFish;
   }
-  console.log(fish.length);
+  console.log(fish.length, fish[0]);
 
   return 0;
 };
