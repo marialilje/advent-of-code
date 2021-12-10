@@ -1,4 +1,5 @@
 const fs = require("fs").promises;
+const _ = require("lodash");
 
 const readIput = async () => {
   const data = await fs.readFile(`${__dirname}/input.txt`);
@@ -32,30 +33,37 @@ const part1 = async () => {
 
   return fish.length;
 };
+
 const part2 = async () => {
   let fish = await readIput();
+  let result = 0;
 
-  for (let day = 0; day < 140; day++) {
-    let newFish = [];
-    for (let currentFish of fish) {
-      if (currentFish === 0) {
-        newFish.push();
-      } else {
-        newFish.push(currentFish - 1);
-      }
-    }
-    fish = newFish;
+  const calculate = _.memoize(
+    calculatePopulationImpact,
+    (fish, days) => `${fish}|${days}`
+  );
+  for (const aFish of fish) {
+    result += calculate(aFish, 256, calculate);
   }
-  console.log(fish.length, fish[0]);
 
-  return 0;
+  return result;
+};
+
+const calculatePopulationImpact = (fish, days, calculate) => {
+  if (days <= fish) {
+    return 1;
+  }
+  const daysRemainingAfterBirth = days - fish - 1;
+  return (
+    calculate(6, daysRemainingAfterBirth, calculate) +
+    calculate(8, daysRemainingAfterBirth, calculate)
+  );
 };
 
 const main = async () => {
   const result1 = await part1();
   const result2 = await part2();
   console.log(`Day 6:`, result1, result2);
-  //console.log(`Day 6:`, result2);
 };
 
 main();
