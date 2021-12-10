@@ -10,10 +10,6 @@ const readIput = async () => {
     .map((number) => parseInt(number));
 };
 
-const makeChildren = async () => {
-  return [6, 8];
-};
-
 const part1 = async () => {
   let fish = await readIput();
   console.log(fish);
