@@ -15,7 +15,7 @@ const readIput = async () => {
 
 const part1 = async () => {
   const signalPatterns = await readIput();
-  return signalPatterns[0];
+  return signalPatterns;
 };
 
 const part2 = async () => {
